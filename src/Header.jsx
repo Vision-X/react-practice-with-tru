@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default class Header extends Component {
   render() {
@@ -7,9 +8,9 @@ export default class Header extends Component {
         <h1>TumbleRoll.com</h1>
         <nav>
           <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">About</a></li>
-            <li><a href="">Contact</a></li>
+            <li><NavLink exact to="/" >Home</NavLink></li>
+            <li><NavLink to="/about">About</NavLink></li>
+            <li><NavLink to="/contact">Contact</NavLink></li>
           </ul>
         </nav>
       </header>
