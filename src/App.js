@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from './Header';
 import Hero from './Hero';
+import Shoes from './Shoes';
 
 class App extends Component {
   constructor() {
@@ -15,13 +16,33 @@ class App extends Component {
     };
   }
 
+  _fetchShoes = () => {
+    let url = "https://webscraper-to-api.firebaseapp.com/output.json"
+    let dataGetter = response => {
+      let arr = [];
+      for (let key in response) {
+        arr.push(response[key])
+      }
+      this.setState({ shoes: arr }, this._logState);
+    }
+    return fetch(url)
+           .then(response => response.json())
+           .then(dataGetter)
+           .catch(console.error);
+  }
+
+  componentDidMount = () => {
+    this._fetchShoes();
+  }
+
   _onChange = () => {
     let userInput = document.querySelector('.text-input').value;
     this.setState({ inputText: userInput}, this._logState);
   }
 
   _logState = () => {
-    console.log(this.state.inputText)
+    console.log(this.state.inputText);
+    console.log(this.state.shoes);
   }
 
   render() {
@@ -36,6 +57,7 @@ class App extends Component {
           name="word"
           placeholder="enter some text!"
         />
+        <Shoes shoeData={this.state.shoes}/>
       </div>
     );
   }
